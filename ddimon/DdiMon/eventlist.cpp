@@ -5,7 +5,14 @@
 CEventList *m_EventList = NULL;
 
 extern PFLT_PORT 	m_pClientPort;
+using _STDEXT exception;
 
+using _Prhand = void(__cdecl*)(const exception&);
+
+namespace std {
+	_CRTIMP2_PURE_IMPORT _Prhand _Raise_handler;
+
+}
 EXTERN_C void __cdecl _invoke_watson(
 	wchar_t const* const expression,
 	wchar_t const* const function_name,

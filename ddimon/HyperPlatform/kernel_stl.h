@@ -118,12 +118,5 @@ _Success_(return >= 0) _Check_return_opt_ EXTERN_C
 //using _Prhand = void(__cdecl*)(const exception&);
 //
 //_CRTIMP2_PURE_IMPORT _Prhand _Raise_handler;
-using _STDEXT exception;
 
-using _Prhand = void(__cdecl*)(const exception&);
-
-namespace std {
-    _CRTIMP2_PURE_IMPORT _Prhand _Raise_handler;
-
-}
 #endif  // HYPERPLATFORM_KERNEL_STL_H_
