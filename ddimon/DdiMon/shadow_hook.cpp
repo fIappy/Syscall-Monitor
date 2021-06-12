@@ -18,7 +18,7 @@
 #include <memory>
 #include <algorithm>
 #include "cs_driver_mm.h"
-
+#include <intrin.h>
 EXTERN_C{
 	extern ULONG_PTR m_CsrssCR3;
 }

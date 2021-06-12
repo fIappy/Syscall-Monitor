@@ -110,4 +110,20 @@ _Success_(return >= 0) _Check_return_opt_ EXTERN_C
         _In_z_ _Printf_format_string_params_(2) wchar_t const *_Format,
         _In_opt_ _locale_t _Locale, va_list _ArgList);
 
+
+
+
+//using _STDEXT exception;
+//
+//using _Prhand = void(__cdecl*)(const exception&);
+//
+//_CRTIMP2_PURE_IMPORT _Prhand _Raise_handler;
+using _STDEXT exception;
+
+using _Prhand = void(__cdecl*)(const exception&);
+
+namespace std {
+    _CRTIMP2_PURE_IMPORT _Prhand _Raise_handler;
+
+}
 #endif  // HYPERPLATFORM_KERNEL_STL_H_

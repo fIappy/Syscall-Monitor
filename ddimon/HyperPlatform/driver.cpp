@@ -15,7 +15,7 @@
 #include "util.h"
 #include "vm.h"
 #include "performance.h"
-#include "main.h"
+#include "../DdiMon/main.h"
 
 EXTERN_C {
 

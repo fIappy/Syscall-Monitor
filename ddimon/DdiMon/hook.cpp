@@ -21,7 +21,7 @@
 #include "NativeEnums.h"
 #include "NativeStructs.h"
 #include "../../Shared/Protocol.h"
-
+#include <intrin.h>
 extern CProcList *m_IgnoreProcList;
 extern CFileList *m_IgnoreFileList;
 extern CEventList *m_EventList;

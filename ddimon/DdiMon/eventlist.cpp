@@ -2,10 +2,24 @@
 
 #include "../HyperPlatform/kernel_stl.h"
 #include "main.h"
-
 CEventList *m_EventList = NULL;
 
 extern PFLT_PORT 	m_pClientPort;
+
+EXTERN_C void __cdecl _invoke_watson(
+	wchar_t const* const expression,
+	wchar_t const* const function_name,
+	wchar_t const* const file_name,
+	unsigned int   const line_number,
+	uintptr_t      const reserved)
+{
+	UNREFERENCED_PARAMETER(expression);
+	UNREFERENCED_PARAMETER(function_name);
+	UNREFERENCED_PARAMETER(file_name);
+	UNREFERENCED_PARAMETER(line_number);
+	UNREFERENCED_PARAMETER(reserved);
+}
+
 
 CEventList::CEventList()
 {
@@ -84,3 +98,4 @@ void CEventList::Unlock(void)
 {
 	ExReleaseFastMutex(&m_MsgLock);
 }
+
