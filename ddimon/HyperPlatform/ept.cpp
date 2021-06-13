@@ -171,6 +171,7 @@ _Use_decl_annotations_ EptData *EptInitialization() {
     return nullptr;
   }
   RtlZeroMemory(ept_data, sizeof(EptData));
+  HYPERPLATFORM_LOG_INFO("ept_data ok");
 
   // Allocate EptPointer
   const auto ept_poiner = reinterpret_cast<EptPointer *>(ExAllocatePoolWithTag(
@@ -180,6 +181,7 @@ _Use_decl_annotations_ EptData *EptInitialization() {
     return nullptr;
   }
   RtlZeroMemory(ept_poiner, PAGE_SIZE);
+  HYPERPLATFORM_LOG_INFO("ept_poiner ok");
 
   // Allocate EPT_PML4 and initialize EptPointer
   const auto ept_pml4 =
@@ -191,6 +193,9 @@ _Use_decl_annotations_ EptData *EptInitialization() {
     return nullptr;
   }
   RtlZeroMemory(ept_pml4, PAGE_SIZE);
+  HYPERPLATFORM_LOG_INFO("ept_pml4 ok");
+
+
   ept_poiner->fields.memory_type =
       static_cast<ULONG64>(memory_type::kWriteBack);
   ept_poiner->fields.page_walk_length = kEptPageWalkLevel - 1;
@@ -214,6 +219,7 @@ _Use_decl_annotations_ EptData *EptInitialization() {
       }
     }
   }
+  HYPERPLATFORM_LOG_INFO("EptpConstructTables ok");
 
   // Initialize an EPT entry for APIC_BASE. It is required to allocated it now
   // for some reasons, or else, system hangs.
@@ -225,6 +231,7 @@ _Use_decl_annotations_ EptData *EptInitialization() {
     ExFreePoolWithTag(ept_data, kHyperPlatformCommonPoolTag);
     return nullptr;
   }
+  HYPERPLATFORM_LOG_INFO("kIa32ApicBase ok");
 
   // Allocate preallocated_entries
   const auto preallocated_entries_size =
@@ -239,6 +246,7 @@ _Use_decl_annotations_ EptData *EptInitialization() {
     return nullptr;
   }
   RtlZeroMemory(preallocated_entries, preallocated_entries_size);
+  HYPERPLATFORM_LOG_INFO("preallocated_entries ok");
 
   // And fill preallocated_entries with newly created entries
   for (auto i = 0ul; i < kEptpNumberOfPreallocatedEntries; ++i) {
@@ -252,6 +260,7 @@ _Use_decl_annotations_ EptData *EptInitialization() {
     }
     preallocated_entries[i] = ept_entry;
   }
+  HYPERPLATFORM_LOG_INFO("preallocated_entries ok ok");
 
   // Initialization completed
   ept_data->ept_pointer = ept_poiner;

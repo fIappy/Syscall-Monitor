@@ -148,16 +148,21 @@ void SymLoadDialog::OnLoadAllImageCompleteNotify(void)
         CUniqueImage *pWin32k = (m_ModuleMgr->m_Image_win32kFull) ? m_ModuleMgr->m_Image_win32kFull : m_ModuleMgr->m_Image_win32k;
         if(pWin32k)
         {
+            std::string str = std::string("NtUserSetWindowsHookEx");
             data.NtUserSetWindowsHookExOffset =
-                    pWin32k->FindFunctionOffsetByName(std::string("NtUserSetWindowsHookEx"));
+                    pWin32k->FindFunctionOffsetByName(str);
+            str = std::string("NtUserSetWindowsHookAW");
             data.NtUserSetWindowsHookAWOffset =
-                    pWin32k->FindFunctionOffsetByName(std::string("NtUserSetWindowsHookAW"));
+                    pWin32k->FindFunctionOffsetByName(str);
+            str = std::string("NtUserFindWindowEx");
             data.NtUserFindWindowExOffset =
-                    pWin32k->FindFunctionOffsetByName(std::string("NtUserFindWindowEx"));
+                    pWin32k->FindFunctionOffsetByName(str);
+            str = std::string("NtUserInternalGetWindowText");
             data.NtUserInternalGetWindowTextOffset =
-                    pWin32k->FindFunctionOffsetByName(std::string("NtUserInternalGetWindowText"));
+                    pWin32k->FindFunctionOffsetByName(str);
+            str = std::string("NtUserGetClassName");
             data.NtUserGetClassNameOffset =
-                    pWin32k->FindFunctionOffsetByName(std::string("NtUserGetClassName"));
+                    pWin32k->FindFunctionOffsetByName(str);
         }
         else
         {

@@ -170,6 +170,7 @@ ULONG GetNativeFunctionIndex(const char *lpFunctionName)
 
 VOID GetNativeFunctionIndexEx(PDYNAMIC_DATA pData)
 {
+	//解析ntdll获取系统调用名字对应的id
 	HANDLE hSection, hFile;
 	PIMAGE_DOS_HEADER dosHeader;
 	PIMAGE_NT_HEADERS32 ntHeader;
@@ -547,6 +548,7 @@ PVOID MiFindExportedRoutine2(
 
 PVOID NativeGetProcAddress(PVOID uModBase, CHAR *cSearchFnName)
 {
+	//通过解析导出表的方式获取导出函数地址
 	IMAGE_DOS_HEADER *doshdr;
 	IMAGE_OPTIONAL_HEADER64 *opthdr;
 	IMAGE_EXPORT_DIRECTORY *pExportTable;
@@ -743,7 +745,8 @@ NTSTATUS InitDynamicData(IN OUT PDYNAMIC_DATA pData)
 		ULONG ver_short = (verInfo.dwMajorVersion << 8) | (verInfo.dwMinorVersion << 4) | verInfo.wServicePackMajor;
 
 		pData->OsVer = (WinVer)ver_short;
-
+		
+		
 		GetNativeFunctionIndexEx(pData);
 
 		GetThisModuleInfo();

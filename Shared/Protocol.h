@@ -57,8 +57,8 @@ enum svc_protocol
 typedef struct
 {
 	ULONG txsb;
-        UCHAR ver;
-        BOOLEAN EnableVmx;
+    UCHAR ver;
+    BOOLEAN EnableVmx;
 	ULONG NtUserSetWindowsHookExOffset;
 	ULONG NtUserSetWindowsHookAWOffset;
 	ULONG NtUserFindWindowExOffset;

@@ -1,6 +1,7 @@
 ﻿#include <QTranslator>
 #include <Windows.h>
 #include <time.h>
+#include <algorithm>
 #include "ProcessMgr.h"
 #include "EventMgr.h"
 #include "DriverWrapper.h"
@@ -369,6 +370,7 @@ bool CEventMgr::DoFilter(const CUniqueEvent *ev)
             if (!bAnyInclude[i] && bInclude)
                 bAnyInclude[i] = 1;
 
+
             if (bPass && !bInclude)
                 return false;
 
@@ -396,7 +398,7 @@ void CEventMgr::FilterRoutine(void)
     QEventList *resultList = new QEventList;
 
     size_t total = m_EventList.size();
-    size_t step = max(total / 100, 1);
+    size_t step = (total / 100 < 1 ? total / 100 : 1);
     resultList->reserve((int)total);
 
     for(int i = 0;i < m_EventList.size(); ++i){

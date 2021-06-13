@@ -93,7 +93,7 @@ _Use_decl_annotations_ NTSTATUS DriverEntry(PDRIVER_OBJECT driver_object,
   // Request NX Non-Paged Pool when available
   ExInitializeDriverRuntime(DrvRtPoolNxOptIn);
 
-  InitDynamicData(&dynData);
+  InitDynamicData(&dynData);//初始化要被hook函数的地址
   InitDynVers();
 
   // Initialize log functions

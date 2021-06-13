@@ -84,7 +84,7 @@ RESOURCES += resource.qrc
 
 RC_FILE += SyscallMon.rc
 
-QMAKE_LFLAGS += /MANIFESTUAC:\"level=\'requireAdministrator\' uiAccess=\'false\'\"
+QMAKE_LFLAGS += "/MANIFESTUAC:level=\'requireAdministrator\'"
 QMAKE_CXXFLAGS += /MP /Gm-
 QMAKE_CFLAGS += /MP /Gm-
 

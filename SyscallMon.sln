@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DdiMon", "ddimon\DdiMon\DdiMon.vcxproj", "{B20D17DD-453E-4420-B691-4EB4B9AE3A15}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "capstone_static_driver", "ddimon\capstone\msvc\capstone_static\capstone_static_driver.vcxproj", "{4789478F-9738-40BB-9CD0-D2034A2AC35B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SyscallMonForm", "SyscallMonForm\SyscallMonForm.vcxproj", "{BA20E7CA-AEC8-4A1D-9404-FD2A5ADEFC18}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SyscallMon", "SyscallMon\SyscallMon.vcxproj", "{B819AEF5-4F0D-3816-A327-2ED170C90DF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,16 +42,17 @@ Global
 		{4789478F-9738-40BB-9CD0-D2034A2AC35B}.Release|x64.Build.0 = Release_WDK|x64
 		{4789478F-9738-40BB-9CD0-D2034A2AC35B}.Release|x86.ActiveCfg = Release_WDK|Win32
 		{4789478F-9738-40BB-9CD0-D2034A2AC35B}.Release|x86.Build.0 = Release_WDK|Win32
-		{BA20E7CA-AEC8-4A1D-9404-FD2A5ADEFC18}.Debug|x64.ActiveCfg = Debug|x64
-		{BA20E7CA-AEC8-4A1D-9404-FD2A5ADEFC18}.Debug|x64.Build.0 = Debug|x64
-		{BA20E7CA-AEC8-4A1D-9404-FD2A5ADEFC18}.Debug|x86.ActiveCfg = Debug|Win32
-		{BA20E7CA-AEC8-4A1D-9404-FD2A5ADEFC18}.Debug|x86.Build.0 = Debug|Win32
-		{BA20E7CA-AEC8-4A1D-9404-FD2A5ADEFC18}.Release|x64.ActiveCfg = Release|x64
-		{BA20E7CA-AEC8-4A1D-9404-FD2A5ADEFC18}.Release|x64.Build.0 = Release|x64
-		{BA20E7CA-AEC8-4A1D-9404-FD2A5ADEFC18}.Release|x86.ActiveCfg = Release|Win32
-		{BA20E7CA-AEC8-4A1D-9404-FD2A5ADEFC18}.Release|x86.Build.0 = Release|Win32
+		{B819AEF5-4F0D-3816-A327-2ED170C90DF0}.Debug|x64.ActiveCfg = Debug|x64
+		{B819AEF5-4F0D-3816-A327-2ED170C90DF0}.Debug|x64.Build.0 = Debug|x64
+		{B819AEF5-4F0D-3816-A327-2ED170C90DF0}.Debug|x86.ActiveCfg = Debug|x64
+		{B819AEF5-4F0D-3816-A327-2ED170C90DF0}.Release|x64.ActiveCfg = Release|x64
+		{B819AEF5-4F0D-3816-A327-2ED170C90DF0}.Release|x64.Build.0 = Release|x64
+		{B819AEF5-4F0D-3816-A327-2ED170C90DF0}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6C27282E-C77A-42E7-AB1A-2B6FAB1384F3}
 	EndGlobalSection
 EndGlobal

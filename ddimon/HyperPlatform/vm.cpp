@@ -401,6 +401,7 @@ _Use_decl_annotations_ static NTSTATUS VmpStartVm(void *context) {
   HYPERPLATFORM_LOG_INFO("Initializing VMX for the processor %d.",
                          KeGetCurrentProcessorNumberEx(nullptr));
   const auto ok = AsmInitializeVm(VmpInitializeVm, context);
+  HYPERPLATFORM_LOG_INFO("AsmInitializeVm Ok");
   NT_ASSERT(VmpIsHyperPlatformInstalled() == ok);
   if (!ok) {
     return STATUS_UNSUCCESSFUL;
@@ -415,6 +416,7 @@ _Use_decl_annotations_ static void VmpInitializeVm(
     ULONG_PTR guest_stack_pointer, ULONG_PTR guest_instruction_pointer,
     void *context) {
   PAGED_CODE();
+  HYPERPLATFORM_LOG_INFO("VmpInitializeVm Enter");
 
   const auto shared_data = reinterpret_cast<SharedProcessorData *>(context);
   if (!shared_data) {
@@ -428,21 +430,26 @@ _Use_decl_annotations_ static void VmpInitializeVm(
   if (!processor_data) {
     return;
   }
+  HYPERPLATFORM_LOG_INFO("ProcessorData Ok");
+
   RtlZeroMemory(processor_data, sizeof(ProcessorData));
   processor_data->shared_data = shared_data;
   InterlockedIncrement(&processor_data->shared_data->reference_count);
 
   // Set up EPT
+  HYPERPLATFORM_LOG_INFO("start Set up EPT");
   processor_data->ept_data = EptInitialization();
   if (!processor_data->ept_data) {
     goto ReturnFalse;
   }
+  HYPERPLATFORM_LOG_INFO("Set up EPT Ok");
 
   //ddimon
   processor_data->sh_data = ShAllocateShadowHookData();
   if (!processor_data->sh_data) {
 	  goto ReturnFalse;
   }
+  HYPERPLATFORM_LOG_INFO("ShAllocateShadowHookData Ok");
 
   // Allocated other processor data fields
   processor_data->vmm_stack_limit =
@@ -451,6 +458,7 @@ _Use_decl_annotations_ static void VmpInitializeVm(
     goto ReturnFalse;
   }
   RtlZeroMemory(processor_data->vmm_stack_limit, KERNEL_LARGE_STACK_SIZE);
+  HYPERPLATFORM_LOG_INFO("UtilAllocateContiguousMemory Ok");
 
   processor_data->vmcs_region =
       reinterpret_cast<VmControlStructure *>(ExAllocatePoolWithTag(
@@ -459,6 +467,7 @@ _Use_decl_annotations_ static void VmpInitializeVm(
     goto ReturnFalse;
   }
   RtlZeroMemory(processor_data->vmcs_region, kVmxMaxVmcsSize);
+  HYPERPLATFORM_LOG_INFO("vmcs_region Ok");
 
   processor_data->vmxon_region =
       reinterpret_cast<VmControlStructure *>(ExAllocatePoolWithTag(
@@ -467,6 +476,7 @@ _Use_decl_annotations_ static void VmpInitializeVm(
     goto ReturnFalse;
   }
   RtlZeroMemory(processor_data->vmxon_region, kVmxMaxVmcsSize);
+  HYPERPLATFORM_LOG_INFO("vmxon_region Ok");
 
   // Initialize stack memory for VMM like this:
   //
@@ -504,13 +514,18 @@ _Use_decl_annotations_ static void VmpInitializeVm(
   if (!VmpEnterVmxMode(processor_data)) {
     goto ReturnFalse;
   }
+  HYPERPLATFORM_LOG_INFO("VmpEnterVmxMode Ok");
+
   if (!VmpInitializeVmcs(processor_data)) {
     goto ReturnFalseWithVmxOff;
   }
+  HYPERPLATFORM_LOG_INFO("VmpInitializeVmcs Ok");
+
   if (!VmpSetupVmcs(processor_data, guest_stack_pointer,
                     guest_instruction_pointer, vmm_stack_base)) {
     goto ReturnFalseWithVmxOff;
   }
+  HYPERPLATFORM_LOG_INFO("VmpSetupVmcs Ok");
 
   // Do virtualize the processor
   VmpLaunchVm();
@@ -641,6 +656,7 @@ _Use_decl_annotations_ static bool VmpSetupVmcs(
   vm_procctl2_requested.fields.enable_rdtscp = true;  // for Win10
   vm_procctl2_requested.fields.enable_vpid = true;
   vm_procctl2_requested.fields.enable_xsaves_xstors = true;  // for Win10
+  vm_procctl2_requested.fields.enable_invpcid = true;       // for Win10
   VmxSecondaryProcessorBasedControls vm_procctl2 = { VmpAdjustControlValue(
 	  Msr::kIa32VmxProcBasedCtls2, vm_procctl2_requested.all) };
 
