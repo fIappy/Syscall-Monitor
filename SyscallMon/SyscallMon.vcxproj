@@ -112,7 +112,7 @@
       <AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
       <AllowIsolation>true</AllowIsolation>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
-      <UACUIAccess>true</UACUIAccess>
+      <UACUIAccess>false</UACUIAccess>
     </Link>
     <Midl>
       <DefaultCharType>Unsigned</DefaultCharType>

@@ -155,6 +155,7 @@ public:
         tableView_Event->setSelectionBehavior(QAbstractItemView::SelectRows);
         tableView_Event->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
         tableView_Event->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+        tableView_Event->setWordWrap(true);
 
         verticalLayout_3->addWidget(tableView_Event);
 

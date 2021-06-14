@@ -258,7 +258,8 @@ void MainWindow::InitEventView(void)
     ui->tableView_Event->setColumnWidth(4, 300);
     ui->tableView_Event->setColumnWidth(5, 200);
     ui->tableView_Event->setColumnWidth(6, 200);
-
+    ui->tableView_Event->setWordWrap(false);
+    ui->tableView_Event->resizeRowsToContents();
     m_eventMenu = new QMenu(this);
     connect(ui->tableView_Event,SIGNAL(customContextMenuRequested(const QPoint &)),this,SLOT(OnShowEventMenu(const QPoint&)));
 }

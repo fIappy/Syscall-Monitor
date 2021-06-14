@@ -29,15 +29,18 @@ public:
     QFrame *frame;
     QVBoxLayout *verticalLayout;
     QGroupBox *groupBox_cfg;
+    QHBoxLayout *horizontalLayout_4;
     QCheckBox *checkBox_vmx;
     QGroupBox *groupBox_km;
-    QCheckBox *checkBox_win32k;
+    QHBoxLayout *horizontalLayout_3;
     QCheckBox *checkBox_ntoskrnl;
+    QCheckBox *checkBox_win32k;
     QCheckBox *checkBox_win32kFull;
     QCheckBox *checkBox_fltmgr;
     QGroupBox *groupBox_um;
-    QCheckBox *checkBox_kernel32;
+    QHBoxLayout *horizontalLayout_2;
     QCheckBox *checkBox_ntdll;
+    QCheckBox *checkBox_kernel32;
     QCheckBox *checkBox_kernelBase;
     QCheckBox *checkBox_user32;
     QLabel *label_loadingStatus;
@@ -49,7 +52,7 @@ public:
         if (SymLoadDialog->objectName().isEmpty())
             SymLoadDialog->setObjectName(QString::fromUtf8("SymLoadDialog"));
         SymLoadDialog->setWindowModality(Qt::NonModal);
-        SymLoadDialog->resize(435, 276);
+        SymLoadDialog->resize(400, 260);
         QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -68,9 +71,15 @@ public:
         groupBox_cfg = new QGroupBox(frame);
         groupBox_cfg->setObjectName(QString::fromUtf8("groupBox_cfg"));
         groupBox_cfg->setMinimumSize(QSize(0, 64));
+        horizontalLayout_4 = new QHBoxLayout(groupBox_cfg);
+        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
         checkBox_vmx = new QCheckBox(groupBox_cfg);
         checkBox_vmx->setObjectName(QString::fromUtf8("checkBox_vmx"));
-        checkBox_vmx->setGeometry(QRect(20, 20, 91, 16));
+        checkBox_vmx->setEnabled(true);
+        checkBox_vmx->setChecked(false);
+
+        horizontalLayout_4->addWidget(checkBox_vmx);
+
 
         verticalLayout->addWidget(groupBox_cfg);
 
@@ -82,22 +91,32 @@ public:
         sizePolicy1.setHeightForWidth(groupBox_km->sizePolicy().hasHeightForWidth());
         groupBox_km->setSizePolicy(sizePolicy1);
         groupBox_km->setMinimumSize(QSize(0, 64));
-        checkBox_win32k = new QCheckBox(groupBox_km);
-        checkBox_win32k->setObjectName(QString::fromUtf8("checkBox_win32k"));
-        checkBox_win32k->setGeometry(QRect(100, 20, 71, 16));
-        checkBox_win32k->setChecked(true);
+        horizontalLayout_3 = new QHBoxLayout(groupBox_km);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         checkBox_ntoskrnl = new QCheckBox(groupBox_km);
         checkBox_ntoskrnl->setObjectName(QString::fromUtf8("checkBox_ntoskrnl"));
-        checkBox_ntoskrnl->setGeometry(QRect(20, 20, 71, 16));
         checkBox_ntoskrnl->setChecked(true);
+
+        horizontalLayout_3->addWidget(checkBox_ntoskrnl);
+
+        checkBox_win32k = new QCheckBox(groupBox_km);
+        checkBox_win32k->setObjectName(QString::fromUtf8("checkBox_win32k"));
+        checkBox_win32k->setChecked(true);
+
+        horizontalLayout_3->addWidget(checkBox_win32k);
+
         checkBox_win32kFull = new QCheckBox(groupBox_km);
         checkBox_win32kFull->setObjectName(QString::fromUtf8("checkBox_win32kFull"));
-        checkBox_win32kFull->setGeometry(QRect(190, 20, 81, 16));
         checkBox_win32kFull->setChecked(true);
+
+        horizontalLayout_3->addWidget(checkBox_win32kFull);
+
         checkBox_fltmgr = new QCheckBox(groupBox_km);
         checkBox_fltmgr->setObjectName(QString::fromUtf8("checkBox_fltmgr"));
-        checkBox_fltmgr->setGeometry(QRect(300, 20, 81, 16));
         checkBox_fltmgr->setChecked(true);
+
+        horizontalLayout_3->addWidget(checkBox_fltmgr);
+
 
         verticalLayout->addWidget(groupBox_km);
 
@@ -109,22 +128,33 @@ public:
         sizePolicy2.setHeightForWidth(groupBox_um->sizePolicy().hasHeightForWidth());
         groupBox_um->setSizePolicy(sizePolicy2);
         groupBox_um->setMinimumSize(QSize(0, 64));
-        checkBox_kernel32 = new QCheckBox(groupBox_um);
-        checkBox_kernel32->setObjectName(QString::fromUtf8("checkBox_kernel32"));
-        checkBox_kernel32->setGeometry(QRect(100, 20, 71, 16));
-        checkBox_kernel32->setChecked(true);
+        horizontalLayout_2 = new QHBoxLayout(groupBox_um);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         checkBox_ntdll = new QCheckBox(groupBox_um);
         checkBox_ntdll->setObjectName(QString::fromUtf8("checkBox_ntdll"));
-        checkBox_ntdll->setGeometry(QRect(20, 20, 71, 16));
         checkBox_ntdll->setChecked(true);
+
+        horizontalLayout_2->addWidget(checkBox_ntdll);
+
+        checkBox_kernel32 = new QCheckBox(groupBox_um);
+        checkBox_kernel32->setObjectName(QString::fromUtf8("checkBox_kernel32"));
+        checkBox_kernel32->setChecked(true);
+
+        horizontalLayout_2->addWidget(checkBox_kernel32);
+
         checkBox_kernelBase = new QCheckBox(groupBox_um);
         checkBox_kernelBase->setObjectName(QString::fromUtf8("checkBox_kernelBase"));
-        checkBox_kernelBase->setGeometry(QRect(190, 20, 91, 16));
         checkBox_kernelBase->setChecked(true);
+
+        horizontalLayout_2->addWidget(checkBox_kernelBase);
+
         checkBox_user32 = new QCheckBox(groupBox_um);
         checkBox_user32->setObjectName(QString::fromUtf8("checkBox_user32"));
-        checkBox_user32->setGeometry(QRect(300, 20, 71, 16));
         checkBox_user32->setChecked(true);
+        checkBox_user32->setTristate(false);
+
+        horizontalLayout_2->addWidget(checkBox_user32);
+
 
         verticalLayout->addWidget(groupBox_um);
 
@@ -167,13 +197,13 @@ public:
         groupBox_cfg->setTitle(QCoreApplication::translate("SymLoadDialog", "Configurations", nullptr));
         checkBox_vmx->setText(QCoreApplication::translate("SymLoadDialog", "Enable Vmx", nullptr));
         groupBox_km->setTitle(QCoreApplication::translate("SymLoadDialog", "Kernel-mode module symbols", nullptr));
-        checkBox_win32k->setText(QCoreApplication::translate("SymLoadDialog", "win32k", nullptr));
         checkBox_ntoskrnl->setText(QCoreApplication::translate("SymLoadDialog", "ntoskrnl", nullptr));
+        checkBox_win32k->setText(QCoreApplication::translate("SymLoadDialog", "win32k", nullptr));
         checkBox_win32kFull->setText(QCoreApplication::translate("SymLoadDialog", "win32kfull", nullptr));
         checkBox_fltmgr->setText(QCoreApplication::translate("SymLoadDialog", "fltmgr", nullptr));
         groupBox_um->setTitle(QCoreApplication::translate("SymLoadDialog", "User-mode module symbols", nullptr));
-        checkBox_kernel32->setText(QCoreApplication::translate("SymLoadDialog", "kernel32", nullptr));
         checkBox_ntdll->setText(QCoreApplication::translate("SymLoadDialog", "ntdll", nullptr));
+        checkBox_kernel32->setText(QCoreApplication::translate("SymLoadDialog", "kernel32", nullptr));
         checkBox_kernelBase->setText(QCoreApplication::translate("SymLoadDialog", "kernelBase", nullptr));
         checkBox_user32->setText(QCoreApplication::translate("SymLoadDialog", "user32", nullptr));
         label_loadingStatus->setText(QString());

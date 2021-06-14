@@ -656,6 +656,7 @@ static ShadowHookTarget m_NtWriteVirtualMemoryHookTarget =
 	NewNtWriteVirtualMemory,
 	nullptr,
 };
+#define kprintf(format, ...) DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "[syscallmon]%s %d " format "\n", __FILE__, __LINE__ ,__VA_ARGS__)
 
 NTSTATUS NTAPI NewNtWriteVirtualMemory(
 	__in HANDLE ProcessHandle,
@@ -715,7 +716,8 @@ NTSTATUS NTAPI NewNtWriteVirtualMemory(
 					data->BaseAddress = (ULONG64)BaseAddress;
 					data->BufferSize = (ULONG64)BufferSize;
 					data->ResultStatus = (ULONG)status;
-
+					data->IsWrite = TRUE;
+					kprintf("pid:%d write pid:%d mem adrr:%p", data->ProcessId, data->TargetProcessId, data->BaseAddress);
 					m_EventList->Lock();
 					m_EventList->SendEvent(data);
 					m_EventList->SendEvent(CreateCallStackEvent(EventId));

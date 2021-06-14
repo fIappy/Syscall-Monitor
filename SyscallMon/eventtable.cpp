@@ -13,7 +13,7 @@ void CEventTableModel::appendRow(CUniqueEvent *ev)
     int row = rowCount();
 
     beginInsertRows(QModelIndex(), row, row);
-
+    
     m_List.push_back(ev);
 
     endInsertRows();
