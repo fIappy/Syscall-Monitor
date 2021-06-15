@@ -260,6 +260,7 @@ public:
         tableView_CallStack->setSelectionBehavior(QAbstractItemView::SelectRows);
         tableView_CallStack->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
         tableView_CallStack->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+        tableView_CallStack->setWordWrap(false);
 
         verticalLayout_6->addWidget(tableView_CallStack);
 
@@ -276,7 +277,7 @@ public:
 
         retranslateUi(EventInfoDialog);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(EventInfoDialog);

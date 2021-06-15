@@ -3,6 +3,7 @@
 #include <vector>
 #include <list>
 #include <set>
+#define kprintf(format, ...) DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "[syscallmon]%s %d " format "\n", __FILE__, __LINE__ ,__VA_ARGS__)
 
 typedef struct File_s
 {

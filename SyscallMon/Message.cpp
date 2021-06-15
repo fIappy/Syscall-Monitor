@@ -4,7 +4,7 @@
 #include "ProcessMgr.h"
 #include "EventMgr.h"
 #include "util.h"
-
+#include <qdebug.h>
 void CMonitorWorker::Quit(void)
 {
     if (m_hQuitEvent != NULL){
@@ -68,7 +68,11 @@ bool CMonitorWorker::ParseMessage(PUCHAR data)
     m_EventMgr->Lock();
 
     QSharedPointer<QByteArray> ba(new QByteArray((const char *)data, header->size));
-
+    auto param = (svc_nt_readwrite_virtual_mem_data*)ba->constData();
+    if (header->protocol == svc_nt_readwrite_virtual_mem && param->IsWrite)
+    {
+        qDebug() << "eventId: " << param->eventId << " ProcessId: " << param->ProcessId << "TargetProcessId: " << param->TargetProcessId << " BaseAddress: " << QString::number(param->BaseAddress,16);
+    }
     switch(header->protocol){
     case svc_callstack:
         CallStack(ba);

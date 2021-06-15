@@ -7,7 +7,7 @@
 #include "DriverWrapper.h"
 #include "util.h"
 #include "nt.h"
-
+#include <qdebug.h>
 #define USE_DL_PREFIX
 #include "dlmalloc.h"
 
@@ -430,13 +430,13 @@ void CEventMgr::OnPsCreateProcess(QSharedPointer<QByteArray> data)
 
     std::wstring NormalizedImagePath;
     NormalizeFilePath(param->ImagePath, NormalizedImagePath);
-
     CUniqueProcess *up = NULL;
 
     if (param->Create)
     {
         up = m_ProcessMgr->Find(param->ProcessId);
-        if (!up) {
+        if (!up) 
+        {
 
             //File operation is slow...?
             QIcon *pIcon = m_ProcessMgr->GetImageFileIcon(NormalizedImagePath);
@@ -450,7 +450,9 @@ void CEventMgr::OnPsCreateProcess(QSharedPointer<QByteArray> data)
 
             emit m_ProcessMgr->AddProcessItem(up);
         }
-    } else {
+    }
+    else
+    {
         up = m_ProcessMgr->Find(param->ProcessId);
         if (up)
         {
@@ -469,10 +471,10 @@ void CEventMgr::OnPsCreateProcess(QSharedPointer<QByteArray> data)
             AddEvent(new CUniqueEvent_CreateProcess(
                          creator, param->ThreadId, up,
                          param->time, param->eventId));
-            AddEvent(new CUniqueEvent_ProcessCreate(
-                         up, param->ThreadId,
-                         param->time, param->eventId));
         }
+        AddEvent(new CUniqueEvent_ProcessCreate(
+            up, param->ThreadId,
+            param->time, param->eventId));
     } else {
         if (up)
         {
@@ -655,7 +657,11 @@ void CEventMgr::OnNtReadWriteVirtualMemory(QSharedPointer<QByteArray> data)
     CUniqueProcess *up = m_ProcessMgr->Find(param->ProcessId);
     CUniqueProcess *target = m_ProcessMgr->Find(param->TargetProcessId);
     if (!up || !target)
+    {
+        qDebug() << "up or targe error eventid: " << param->eventId << " pid: " << param->ProcessId << " tpid: " << param->TargetProcessId << " baseaddr: " << QString::number(param->BaseAddress, 16) << " up: " << \
+            QString::number((ULONG_PTR)up, 16) << " target:" << QString::number((ULONG_PTR)target, 16);
         return;
+    }
     if(param->IsWrite)
         AddEvent(new CUniqueEvent_WriteVirtualMemory(
                      up, param->ThreadId, target,

@@ -656,7 +656,6 @@ static ShadowHookTarget m_NtWriteVirtualMemoryHookTarget =
 	NewNtWriteVirtualMemory,
 	nullptr,
 };
-#define kprintf(format, ...) DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "[syscallmon]%s %d " format "\n", __FILE__, __LINE__ ,__VA_ARGS__)
 
 NTSTATUS NTAPI NewNtWriteVirtualMemory(
 	__in HANDLE ProcessHandle,
@@ -688,7 +687,7 @@ NTSTATUS NTAPI NewNtWriteVirtualMemory(
 	//if (bValid && ProcessId == m_SyscallMonPID && PsGetCurrentProcessId() != ProcessId)
 	//	status = STATUS_ACCESS_DENIED;
 	//else
-		status = original(ProcessHandle, BaseAddress, Buffer, BufferSize, NumberOfBytesWritten);
+	status = original(ProcessHandle, BaseAddress, Buffer, BufferSize, NumberOfBytesWritten);
 
 	svc_nt_readwrite_virtual_mem_data *data = NULL;
 
@@ -717,7 +716,19 @@ NTSTATUS NTAPI NewNtWriteVirtualMemory(
 					data->BufferSize = (ULONG64)BufferSize;
 					data->ResultStatus = (ULONG)status;
 					data->IsWrite = TRUE;
-					kprintf("pid:%d write pid:%d mem adrr:%p", data->ProcessId, data->TargetProcessId, data->BaseAddress);
+					PEPROCESS eProcess = 0;
+					if (PsLookupProcessByProcessId((HANDLE)data->ProcessId, &eProcess) >= 0)
+					{
+						char* name = PsGetProcessImageFileName(eProcess);
+						if (1 || strstr(name, "meme"))
+						{
+							kprintf("EventId:%d pid:%d name:%s write pid:%d %s mem adrr:%p", EventId, data->ProcessId, PsGetProcessImageFileName(eProcess), data->TargetProcessId, PsGetProcessImageFileName(Process), data->BaseAddress);
+
+						}
+						ObDereferenceObject(eProcess);
+					}
+
+
 					m_EventList->Lock();
 					m_EventList->SendEvent(data);
 					m_EventList->SendEvent(CreateCallStackEvent(EventId));

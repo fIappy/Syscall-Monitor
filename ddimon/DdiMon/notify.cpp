@@ -160,7 +160,7 @@ VOID CreateProcessNotifyRoutine(HANDLE ParentId, HANDLE ProcessId, BOOLEAN Creat
 
 		svc_ps_create_process_data *data = (svc_ps_create_process_data *)
 			MakePsCreateProcessEvent(EventId, ParentId, ProcessId, Create);
-
+		
 		if (data)
 		{
 			m_EventList->Lock();
